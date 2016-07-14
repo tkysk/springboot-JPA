@@ -21,10 +21,10 @@
     </style>
 </head>
 <body>
-<h1 th:text="#{content.title}">Hello</h1>
-<p th:text="${msg}">main message</p>
+<h1>Edit page</h1>
 
 <form method="post" action="/" th:object="${formModel}">
+    <input type="hidden" name="id" th:value="*{id}" />
     <label for="name" id="name">名前</label>
     <input type="text" name="name" th:value="*{name}"/><br/>
     <label for="age" id="age">年齢</label>
@@ -38,20 +38,5 @@
 </form>
 <hr/>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>名前</th>
-        <th>メール</th>
-        <th>メモ</th>
-    </tr>
-    <tr th:each="rec : ${datalist}">
-        <td th:text="${rec.id}"></td>
-        <td th:text="${rec.name}"></td>
-        <td th:text="${rec.mail}"></td>
-        <td th:text="${rec.memo}"></td>
-    </tr>
-</table>
-<pre th:utext="${datalist}">data</pre>
 </body>
 </html>
