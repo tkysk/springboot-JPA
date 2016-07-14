@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Home</title>
+    <style>
+        pre {
+            border: solid 3px #ddd;
+            padding: 10px;
+        }
+
+        th {
+            background-color: darkcyan;
+            color: #FFF;
+            padding: 3px 20px;
+        }
+        td {
+            background-color: lightcyan;
+            color:#444;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="#{content.title}">Hello</h1>
+<p th:text="${msg}">main message</p>
+
+<form method="post" action="/" th:object="${formModel}">
+    <label for="name" id="name">名前</label>
+    <input type="text" name="name" th:value="*{name}"/><br/>
+    <label for="age" id="age">年齢</label>
+    <input type="text" name="age" th:value="*{age}"/><br/>
+    <label for="mail" id="mail">メール</label>
+    <input type="text" name="mail" th:value="*{mail}"/><br/>
+    <label for="memo" id="memo">メモ</label>
+    <textarea name="memo" th:value="*{memo}" cols="20" rows="5"></textarea>
+    <br/>
+    <input type="submit"/>
+</form>
+<hr/>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>メール</th>
+        <th>メモ</th>
+    </tr>
+    <tr th:each="rec : ${datalist}">
+        <td th:text="${rec.id}"></td>
+        <td th:text="${rec.name}"></td>
+        <td th:text="${rec.mail}"></td>
+        <td th:text="${rec.memo}"></td>
+    </tr>
+</table>
+<pre th:utext="${datalist}">data</pre>
+</body>
+</html>
