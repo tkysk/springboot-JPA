@@ -1,20 +1,19 @@
-package com.example.controller;
+package com.example.app;
 
-import com.example.model.User;
-import com.example.repositories.UserRepository;
+import com.example.domain.model.User;
+import com.example.domain.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.PostConstruct;
-
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 
 /**
  * Created by saeki on 2016/07/14.
@@ -27,8 +26,8 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(@ModelAttribute("formModel") User formData, Model model) {
         model.addAttribute("msg", "this is sample content.");
-//        Iterable<User> list = repository.findAll();
-        Iterable<User> list = repository.findByIdIsNotNullOrderByIdDesc();
+        Iterable<User> list = repository.findAll();
+//        Iterable<User> list = repository.findByIdIsNotNullOrderByIdDesc();
         model.addAttribute("datalist", list);
 
         return "home";
@@ -36,19 +35,34 @@ public class UserController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @Transactional
-    public String form(@ModelAttribute("formModel") User formData, Model model) {
-        repository.saveAndFlush(formData);
-        return "redirect:/";
+    public String form(
+            @ModelAttribute("formModel") @Validated User formData,
+            BindingResult result,
+            Model model
+    ) {
+        if (!result.hasErrors()) {
+            repository.saveAndFlush(formData);
+            return "redirect:/";
+        } else {
+            model.addAttribute("msg", "sorry, error is occured...");
+            model.addAttribute("datalist", repository.findAll());
+            return "home";
+        }
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editPage(
             @PathVariable Long id,
+//            @RequestParam Long id,
             @ModelAttribute User data,
             Model model
     ) {
-        User currentData = repository.findById(id);
-        model.addAttribute("formModel", currentData);
+        try {
+            User currentData = repository.findById(id);
+            model.addAttribute("formModel", currentData);
+        } catch (NullPointerException e) {
+        }
+
         return "edit";
     }
 
@@ -66,6 +80,7 @@ public class UserController {
         d1.setName("Katsuo");
         d1.setAge(11);
         d1.setMail("katsu@ex");
+        d1.setPhone("123456");
         d1.setMemo("Hello i am katsuo");
         repository.saveAndFlush(d1);
 
@@ -73,6 +88,7 @@ public class UserController {
         d2.setName("Wakame");
         d2.setAge(10);
         d2.setMail("waka@ex");
+        d2.setPhone("1234561233");
         d2.setMemo("Hello i am Wakame");
         repository.saveAndFlush(d2);
 

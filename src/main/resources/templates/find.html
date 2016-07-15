@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
+    <title>find page</title>
+</head>
+<body>
+<h1 th:text="${title}">Hello</h1>
+<p th:text="${msg}">main message</p>
+
+<form action="/find" method="post">
+    <label for="query">FIND: </label>
+    <input type="text" name="fstr" size="20" th:value="${value}" id="query"/>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>年齢</th>
+        <th>メール</th>
+        <th>電話番号</th>
+        <th>メモ</th>
+    </tr>
+    <tr th:each="rec : ${datalist}">
+        <td th:text="${rec.id}"></td>
+        <td th:text="${rec.name}"></td>
+        <td th:text="${rec.age}"></td>
+        <td th:text="${rec.mail}"></td>
+        <td th:text="${rec.phone}"></td>
+        <td th:text="${rec.memo}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

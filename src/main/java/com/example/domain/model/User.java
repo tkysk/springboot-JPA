@@ -1,6 +1,13 @@
-package com.example.model;
+package com.example.domain.model;
+
+import com.example.Annotation.Phone;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by saeki on 2016/07/14.
@@ -11,18 +18,26 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
+    @NotNull
     private long id;
 
     @Column(length = 50, nullable = false)
+    @NotEmpty
     private String name;
 
     @Column(length = 200)
+    @Email
     private String mail;
 
     @Column(length = 3)
+    @Min(0)
+    @Max(200)
     private Integer age;
 
     private String memo;
+
+    @Phone(onlyNumber = true)
+    private String phone;
 
     public long getId() {
         return id;
@@ -62,5 +77,13 @@ public class User {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

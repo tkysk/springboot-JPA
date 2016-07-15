@@ -2,28 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
     <title>Home</title>
-    <style>
-        pre {
-            border: solid 3px #ddd;
-            padding: 10px;
-        }
-
-        th {
-            background-color: darkcyan;
-            color: #FFF;
-            padding: 3px 20px;
-        }
-
-        td {
-            background-color: lightcyan;
-            color: #444;
-        }
-
-        .err {
-            color: red;
-        }
-    </style>
 </head>
 <body>
 <h1 th:text="#{content.title}">Hello</h1>

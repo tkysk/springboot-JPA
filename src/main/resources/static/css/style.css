@@ -1,0 +1,19 @@
+pre {
+    border: solid 3px #ddd;
+    padding: 10px;
+}
+
+th {
+    background-color: darkcyan;
+    color: #FFF;
+    padding: 3px 20px;
+}
+
+td {
+    background-color: lightcyan;
+    color: #444;
+}
+
+.err {
+    color: red;
+}
