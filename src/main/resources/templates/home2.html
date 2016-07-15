@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
     <title>Home2</title>
 </head>
 <body>
@@ -25,6 +25,17 @@
         <td th:text="${rec.mail}"></td>
         <td th:text="${rec.phone}"></td>
         <td th:text="${rec.memo}"></td>
+    </tr>
+    <tr>
+        <td style="text-align: left;">
+            <a th:href="${#TLHelper.prevUrl(pagenumber)}">&lt;- Prev</a>
+        </td>
+        <td style="text-align: center;">
+            page
+        </td>
+        <td style="text-align: right;">
+            <a th:href="${#TLHelper.nextUrl(pagenumber)}">Next -&gt;</a>
+        </td>
     </tr>
 </table>
 
