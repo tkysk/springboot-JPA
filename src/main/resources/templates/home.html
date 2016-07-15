@@ -14,9 +14,14 @@
             color: #FFF;
             padding: 3px 20px;
         }
+
         td {
             background-color: lightcyan;
-            color:#444;
+            color: #444;
+        }
+
+        .err {
+            color: red;
         }
     </style>
 </head>
@@ -25,14 +30,35 @@
 <p th:text="${msg}">main message</p>
 
 <form method="post" action="/" th:object="${formModel}">
-    <label for="name" id="name">名前</label>
-    <input type="text" name="name" th:value="*{name}"/><br/>
-    <label for="age" id="age">年齢</label>
-    <input type="text" name="age" th:value="*{age}"/><br/>
-    <label for="mail" id="mail">メール</label>
-    <input type="text" name="mail" th:value="*{mail}"/><br/>
-    <label for="memo" id="memo">メモ</label>
-    <textarea name="memo" th:text="*{memo}" cols="20" rows="5"></textarea>
+    <ul>
+        <li th:each="error : ${#fields.detailedErrors()}" th:text="${error.message}" class="err"/>
+    </ul>
+
+    <div class="field">
+        <label for="name" id="name">名前</label>
+        <input type="text" name="name" th:value="*{name}"/><br/>
+        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="err"></div>
+    </div>
+    <div class="field">
+        <label for="age" id="age">年齢</label>
+        <input type="text" name="age" th:value="*{age}"/><br/>
+        <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}" th:errorclass="err"></div>
+    </div>
+    <div class="field">
+        <label for="mail" id="mail">メール</label>
+        <input type="text" name="mail" th:value="*{mail}"/><br/>
+        <div th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" th:errorclass="err"></div>
+    </div>
+    <div class="field">
+        <label for="phone" id="phone">電話番号</label>
+        <input type="text" name="phone" th:value="*{phone}" /><br />
+        <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" th:errorclass="err"></div>
+    </div>
+    <div class="field">
+        <label for="memo" id="memo">メモ</label>
+        <textarea name="memo" th:text="*{memo}" cols="20" rows="5"></textarea>
+        <div th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}" th:errorclass="err"></div>
+    </div>
     <br/>
     <input type="submit"/>
 </form>
