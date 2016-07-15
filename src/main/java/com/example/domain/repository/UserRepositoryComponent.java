@@ -1,7 +1,11 @@
 package com.example.domain.repository;
 
 import com.example.domain.model.User;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,10 +17,18 @@ import java.util.List;
 /**
  * Created by saeki on 2016/07/15.
  */
-@Service
+@Component
 public class UserRepositoryComponent {
     @PersistenceContext
     private EntityManager entityManager;
+
+    /* list7-14 */
+    @Value("${userlist.pagesize}")
+    private int PAGE_SIZE = 3;
+
+    @Autowired
+    private UserRepository repository;
+    /* ******* */
 
     public List<User> getAll() {
         return (List<User>) entityManager
@@ -40,5 +52,10 @@ public class UserRepositoryComponent {
         return (List<User>) entityManager
                 .createQuery(query)
                 .getResultList();
+    }
+
+    public Page<User> getUserInPage(Integer pageNumber){
+        PageRequest pageRequest = new PageRequest(pageNumber - 1, PAGE_SIZE);
+        return repository.findAll(pageRequest);
     }
 }

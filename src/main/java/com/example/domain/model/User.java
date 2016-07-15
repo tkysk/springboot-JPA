@@ -1,6 +1,6 @@
 package com.example.domain.model;
 
-import com.example.Annotation.Phone;
+import com.example.domain.validation.Phone;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 

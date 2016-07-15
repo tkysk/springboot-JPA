@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringbootJpaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootJpaApplication.class, args);
+		SpringApplication.run(SpringbootJpaApplication.class, new String[]{"100"});
 	}
 }

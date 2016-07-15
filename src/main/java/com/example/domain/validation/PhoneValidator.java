@@ -1,7 +1,5 @@
 package com.example.domain.validation;
 
-import com.example.Annotation.Phone;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 

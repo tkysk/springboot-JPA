@@ -1,7 +1,7 @@
 package com.example.app;
 
 import com.example.domain.model.User;
-import com.example.domain.repositories.UserRepository;
+import com.example.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,5 +92,20 @@ public class UserController {
         d2.setMemo("Hello i am Wakame");
         repository.saveAndFlush(d2);
 
+        User d3 = new User();
+        d3.setName("Tarako");
+        d3.setAge(3);
+        d3.setMail("tara@tara");
+        d3.setPhone("1234561233");
+        d3.setMemo("Hello i am tara");
+        repository.saveAndFlush(d3);
+
+        User d4 = new User();
+        d4.setName("Tarao");
+        d4.setAge(3);
+        d4.setMail("tara@tara");
+        d4.setPhone("1234561233");
+        d4.setMemo("Hello i am tara");
+        repository.saveAndFlush(d4);
     }
 }
